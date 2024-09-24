@@ -56,7 +56,7 @@ public class Main {
     }
     public static int presente(int[]vettore, int numero){
         int posizione=0;
-        for(int i=0;i< vettore.length-1;i++){
+        for(int i=0;i< vettore.length;i++){
                 if(numero==vettore[i]){
                     posizione=i;
             }
