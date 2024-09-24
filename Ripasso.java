@@ -10,11 +10,9 @@ public class Main {
         Scanner tastiera = new Scanner(System.in);
         String[] opzioni = {"Menu", "1- Genera Random", "2- Visualizzazione", "3-Verifica","4- Fine"};
         boolean esci = true;
-        int[] nEstratti = null;
         final int MAXNUMERI = 50;
         int[] nEstratti2 = new int[MAXNUMERI];
         int numero=0;
-        //int[] nEstratti2;
         do {
             switch (Menu(opzioni, tastiera)) {
                 case 1:
@@ -29,7 +27,7 @@ public class Main {
                     System.out.println("inserisci un numero: ");
                     numero=(Integer.parseInt(tastiera.nextLine()));
                     int posizione=presente(nEstratti2,numero);
-                    System.out.println("Posizione: "+ posizione);
+                    System.out.printf("Posizione: %d\n", posizione+1);
                     break;
                 case 4:
                     System.out.println("Fine");
