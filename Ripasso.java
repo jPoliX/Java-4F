@@ -27,6 +27,9 @@ public class Main {
                     System.out.println("inserisci un numero: ");
                     numero=(Integer.parseInt(tastiera.nextLine()));
                     int posizione=presente(nEstratti2,numero);
+                    if(posizione==-1){
+                        System.out.println("non presente");
+                    } else
                     System.out.printf("Posizione: %d\n", posizione+1);
                     break;
                 case 4:
@@ -55,7 +58,7 @@ public class Main {
         }
     }
     public static int presente(int[]vettore, int numero){
-        int posizione=0;
+        int posizione=-1;
         for(int i=0;i< vettore.length;i++){
                 if(numero==vettore[i]){
                     posizione=i;
