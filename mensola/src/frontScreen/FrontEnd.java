@@ -36,4 +36,9 @@ public class FrontEnd {
 
         return l;
     }
+    public static void visualizza(Libro mensola[], int maxnumeri){
+        for(int i=0;i<maxnumeri;i++){
+            System.out.println(mensola[i].FormattaDati());
+        }
+    }
 }
