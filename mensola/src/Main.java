@@ -46,19 +46,25 @@ public class Main {
                 }
                 case 2 -> {
                     if (i > 0) {
-                        FrontEnd.visualizza(mensola,MAXLIBRI);
+                        visualizza(mensola,i);
                     } else
                         System.out.println("non ci sono libri");
                 }
-                //confronta autore
-                case 3 ->{
-                    if(i>MAXLIBRI){
-                        Libro nuovo=new Libro();
+                //confronta autore e titolo
+                case 3 -> {
+                    if (i > 0) {
+                        Libro nuovo = new Libro();
+                        System.out.println("inserisci l'autore:");
                         nuovo.Autore=tastiera.nextLine();
-                        if(ricerca(mensola , MAXLIBRI, nuovo)){
+                        System.out.println("inserisci il titolo:");
+                        nuovo.Titolo=tastiera.nextLine();
+                        if (ricerca(mensola, i, nuovo)) {
                             System.out.println("è già presente");
-                        } else
+                        } else {
                             System.out.println("non è presente");
+                        }
+                    } else {
+                        System.out.println("Non ci sono libri nella mensola");
                     }
                 }
                 case 4 -> {
@@ -70,12 +76,21 @@ public class Main {
         }while(!fine);
 
     }
-    public static boolean ricerca(Libro[] mensola, int max, Libro nuovo){
-        for(int i=0;i<max;i++){
-            if(mensola[i].Autore.equals(nuovo.Autore)){
+    public static boolean ricerca(Libro[] mensola, int numeroLibriInseriti, Libro nuovo) {
+        for (int i = 0; i < numeroLibriInseriti; i++) {
+            if (mensola[i] != null &&
+                    mensola[i].Autore.equals(nuovo.Autore) &&
+                    mensola[i].Titolo.equals(nuovo.Titolo)) {
                 return true;
             }
         }
         return false;
+    }
+    public static void visualizza(Libro mensola[], int numeroLibriAggiunti) {
+        for (int i = 0; i < numeroLibriAggiunti; i++) {
+            if (mensola[i] != null) {
+                System.out.println(mensola[i].FormattaDati());
+            }
+        }
     }
 }
