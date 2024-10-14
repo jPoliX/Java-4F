@@ -14,8 +14,7 @@ public class FrontEnd {
     public static Libro leggiLibro(Scanner tastiera) {
         Libro l = new Libro();
         System.out.println("Inserisci autore:");
-        l.Autore = tastiera.nextLine();
-        System.out.println("Inserisci titolo:");
+        l.Autore = tastiera.nextLine();System.out.println("Inserisci titolo:");
         l.Titolo = tastiera.nextLine();
         System.out.println("Inserisci il tipo:");
 
@@ -36,9 +35,5 @@ public class FrontEnd {
 
         return l;
     }
-    public static void visualizza(Libro mensola[], int maxnumeri){
-        for(int i=0;i<maxnumeri;i++){
-            System.out.println(mensola[i].FormattaDati());
-        }
-    }
+
 }
