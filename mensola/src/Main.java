@@ -15,21 +15,6 @@ public class Main {
         String[] opzioni= { "App Libri", "Inserimento" , "Visualizza" , "Ricerca" , "Fine"};
         boolean fine=false;
 
-        /* while (i < MAXLIBRI) {
-            System.out.println("Vuoi aggiungere un libro? 'si' per aggiungere");
-            String risposta = tastiera.nextLine();
-
-            if (risposta.equals("si")) {
-                mensola[i] = FrontEnd.leggiLibro(tastiera);
-                System.out.println("Libro aggiunto");
-                System.out.println(mensola[i].FormattaDati());
-                costoTotale += mensola[i].pagine * mensola[i].PREZZOPAGINA;
-                i++;
-            } else {
-                System.out.println("libro non aggiunto");
-                break;
-            }
-        } */
         do {
             switch (Menu(opzioni, tastiera)) {
                 case 1 -> {
@@ -44,12 +29,14 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                 }
+
                 case 2 -> {
                     if (i > 0) {
                         visualizza(mensola,i);
                     } else
                         System.out.println("non ci sono libri");
                 }
+
                 //confronta autore e titolo
                 case 3 -> {
                     if (i > 0) {
@@ -58,15 +45,20 @@ public class Main {
                         nuovo.Autore=tastiera.nextLine();
                         System.out.println("inserisci il titolo:");
                         nuovo.Titolo=tastiera.nextLine();
-                        if (ricerca(mensola, i, nuovo)) {
-                            System.out.println("è già presente");
-                        } else {
-                            System.out.println("non è presente");
+                        int posizione = ricerca(mensola, i, nuovo);
+                        try {
+                            if (posizione != -1) {
+                                System.out.println("Il libro è presente in posizione: " + posizione);
+                            } else
+                                throw new Exception("il libro non è presente");
+                        }catch (Exception e){
+                            System.out.println(e.getMessage());
                         }
                     } else {
                         System.out.println("Non ci sono libri nella mensola");
                     }
                 }
+
                 case 4 -> {
                     fine=true;
                     System.out.println("uscita");
@@ -76,15 +68,13 @@ public class Main {
         }while(!fine);
 
     }
-    public static boolean ricerca(Libro[] mensola, int numeroLibriInseriti, Libro nuovo) {
+    public static int ricerca(Libro[] mensola, int numeroLibriInseriti, Libro nuovo) {
         for (int i = 0; i < numeroLibriInseriti; i++) {
-            if (mensola[i] != null &&
-                    mensola[i].Autore.equals(nuovo.Autore) &&
-                    mensola[i].Titolo.equals(nuovo.Titolo)) {
-                return true;
+            if (mensola[i] != null && mensola[i].Autore.equals(nuovo.Autore) && mensola[i].Titolo.equals(nuovo.Titolo)) {
+                return i;
             }
         }
-        return false;
+        return -1;
     }
     public static void visualizza(Libro mensola[], int numeroLibriAggiunti) {
         for (int i = 0; i < numeroLibriAggiunti; i++) {
