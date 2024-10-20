@@ -1,6 +1,7 @@
 import mensola.Libro;
 import frontScreen.FrontEnd;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import static utility.Tools.Menu;
@@ -12,7 +13,7 @@ public class Main {
         Libro[] mensola = new Libro[MAXLIBRI];
         int i = 0; // numero di libri
         double costoTotale = 0.0;
-        String[] opzioni = {"App Libri", "Inserimento", "Visualizza", "Ricerca", "Visualizza un libro","Fine"};
+        String[] opzioni = {"App Libri", "Inserimento", "Visualizza", "Ricerca", "Rimuovi", "Modifica data", "Fine"};
         boolean fine = false;
 
         do {
@@ -59,16 +60,42 @@ public class Main {
                     }
                 }
                 case 4 ->{
-                    if(i>0){
-                        Libro nuovo = new Libro();
-                        System.out.println("inserisci l'autore:");
-                        nuovo.Autore = tastiera.nextLine();
-                        System.out.println("inserisci il titolo:");
-                        nuovo.Titolo = tastiera.nextLine();
-                        get(mensola, i, nuovo);
+                if (i > 0) {
+                    Libro nuovo = new Libro();
+                    System.out.println("inserisci l'autore:");
+                    nuovo.Autore = tastiera.nextLine();
+                    System.out.println("inserisci il titolo:");
+                    nuovo.Titolo = tastiera.nextLine();
+                    try{
+                        if(rimuovi(mensola, nuovo, i)){
+                            i--;
+                        } else
+                            throw new Exception("Il libro non è presente");
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
                     }
                 }
-                case 5 -> {
+            }
+            case 5 ->{
+                if (i > 0) {
+                    Libro nuovo = new Libro();
+                    System.out.println("inserisci l'autore:");
+                    nuovo.Autore = tastiera.nextLine();
+                    System.out.println("inserisci il titolo:");
+                    nuovo.Titolo = tastiera.nextLine();
+                    int posizione = ricerca(mensola, i, nuovo);
+                    try {
+                        if (posizione != -1) {
+                            System.out.println("Inserisci la nuova data: ");
+                            mensola[posizione].dataDiPubblicazione = LocalDate.parse(tastiera.nextLine());
+                        } else
+                            throw new Exception("Il libro non è presente");
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+                case 6 -> {
                     fine = true;
                     System.out.println("uscita");
                 }
@@ -94,12 +121,25 @@ public class Main {
             }
         }
     }
-
-    public static void get(Libro[] mensola, int numeroLibriInseriti, Libro nuovo) {
+    public static boolean rimuovi (Libro[] mensola,Libro nuovo, int numeroLibriInseriti) {
         for (int i = 0; i < numeroLibriInseriti; i++) {
-            if (mensola[i] != null && mensola[i].Autore.equals(nuovo.Autore) && mensola[i].Titolo.equals(nuovo.Titolo)) {
-              visualizza(mensola, numeroLibriInseriti);
+            if (mensola[i].Autore.equals(nuovo.Autore) && mensola[i].Titolo.equals(nuovo.Titolo)) {
+                for (int j = i; j < numeroLibriInseriti - 1; j++) {
+                    mensola[j] = mensola[j + 1];
+                }
+                mensola[numeroLibriInseriti - 1] = null;
+                return true;
             }
         }
+        return false;
     }
+   /* public static boolean modificaData (Libro[] mensola, int numeroLibriInseriti, Libro nuovo){
+        for(int i=0;i<numeroLibriInseriti;i++){
+            if (mensola[i].Autore.equals(nuovo.Autore) && mensola[i].Titolo.equals(nuovo.Titolo)) {
+                mensola[i].dataDiPubblicazione = nuovo.dataDiPubblicazione;
+                return true;
+            }
+        }
+        return false;
+    }*/
 }
