@@ -49,6 +49,6 @@ public class Main {
     }
 
     public static void visualizza(ArrayList<Libro> mensola){
-        mensola.forEach(libro -> System.out.println(libro.toString()));
+        mensola.forEach(m -> System.out.println(m.toString()));
     }
 }
