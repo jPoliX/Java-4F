@@ -1,6 +1,8 @@
 import mensola.Libro;
 import frontScreen.FrontEnd;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +11,7 @@ import static utility.Tools.Menu;
 public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
-        String[] opzioni = {"Esercizio con le liste", "Inserimento", "Visualizza", "Rimuovi", "Fine"};
+        String[] opzioni = {"Esercizio con le liste", "Inserimento", "Visualizza", "Rimuovi", "Modifica data", "Fine"};
         ArrayList<Libro> mensola = new ArrayList<>();
         final int MAXLIBRI = 3;
         boolean esci = false;
@@ -50,8 +52,25 @@ public class Main {
 
                     }
                 }
-
                 case 4 ->{
+                    if(!mensola.isEmpty()){
+                        Libro nuovo = new Libro();
+                        System.out.println("Inserisci l'autore");
+                        nuovo.Autore = tastiera.nextLine();
+                        System.out.println("Inserisci il titolo");
+                        nuovo.Titolo = tastiera.nextLine();
+                        int posizione = findIndex(mensola, nuovo);
+                        if(posizione != -1){
+                            System.out.println("Inserisci la nuova data");
+                            nuovo.dataDiPubblicazione = LocalDate.parse(tastiera.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                            mensola.get(posizione).dataDiPubblicazione = nuovo.dataDiPubblicazione;
+                            System.out.println("Data modificata");
+                        } else
+                            System.out.println("Libro non trovato");
+                    }
+                }
+
+                case 5 ->{
                     esci = true;
                     System.out.println("uscita");
                 }
