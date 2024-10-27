@@ -1,8 +1,6 @@
 import mensola.Libro;
 import frontScreen.FrontEnd;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +9,7 @@ import static utility.Tools.Menu;
 public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
-        String[] opzioni = {"Esercizio con le liste", "Inserimento", "Visualizza","Fine"};
+        String[] opzioni = {"Esercizio con le liste", "Inserimento", "Visualizza", "Rimuovi", "Fine"};
         ArrayList<Libro> mensola = new ArrayList<>();
         final int MAXLIBRI = 3;
         boolean esci = false;
@@ -39,6 +37,21 @@ public class Main {
                         System.out.println("Mensola vuota");
                 }
                 case 3 ->{
+                    if(!mensola.isEmpty()){
+                        Libro nuovo = new Libro();
+                        System.out.println("Inserisci l'autore");
+                        nuovo.Autore = tastiera.nextLine();
+                        System.out.println("Inserisci il titolo");
+                        nuovo.Titolo = tastiera.nextLine();
+                        if(rimuoviLibro(mensola, nuovo) != null){
+                            System.out.println("libro rimosso");
+                        } else
+                            System.out.println("Libro non trovato");
+
+                    }
+                }
+
+                case 4 ->{
                     esci = true;
                     System.out.println("uscita");
                 }
@@ -47,15 +60,35 @@ public class Main {
         }while(!esci);
 
     }
+
     public static boolean verifica(ArrayList<Libro> mensola, Libro nuovo){
-      for(int i=0; i< mensola.size();i++){
-          if(mensola.get(i).Autore.equals(nuovo.Autore) && mensola.get(i).Titolo.equals(nuovo.Titolo)){
-              return true;
-          }
-      }
-      return false;
+        for(int i=0; i< mensola.size();i++){
+            if(mensola.get(i).Autore.equals(nuovo.Autore) && mensola.get(i).Titolo.equals(nuovo.Titolo)){
+                return true;
+            }
+        }
+        return false;
     }
+
     public static void visualizza(ArrayList<Libro> mensola){
-        mensola.forEach(m -> System.out.println(m.toString()));
+        mensola.forEach(m -> System.out.println(m.FormattaDati()));
+    }
+
+    public static ArrayList<Libro> rimuoviLibro(ArrayList<Libro> mensola, Libro nuovo){
+        int posizione = findIndex(mensola, nuovo);
+        if(posizione != -1) {
+            mensola.remove(posizione);
+            return mensola;
+        }
+        return null;
+        }
+
+    public static int findIndex(ArrayList<Libro> mensola, Libro nuovo){
+        for(int i=0; i< mensola.size();i++){
+            if(mensola.get(i).Autore.equals(nuovo.Autore) && mensola.get(i).Titolo.equals(nuovo.Titolo)){
+                return i;
+            }
+        }
+        return -1;
     }
 }
