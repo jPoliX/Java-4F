@@ -13,8 +13,7 @@ public class Libro {
     public Genere tipo;
     private DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    @Override
-    public String toString() {
+    public String FormattaDati() {
         return String.format("Autore : %s , Titolo: %s, PREZZOPAGINA %.2f, Pagine:%d , tipo: %s, Data: %s ", Autore, Titolo, PREZZOPAGINA * pagine, pagine, tipo, dataDiPubblicazione.format(dataFormat));
     }
 
