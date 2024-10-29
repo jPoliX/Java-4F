@@ -18,26 +18,27 @@ public class Main {
 
         do{
             switch (Menu(opzioni, tastiera)){
-                case 1 ->{
-                    if(mensola.size() < MAXLIBRI){
-                        try {
+                case 1 -> {
+                    try {
+                        if (mensola.size() < MAXLIBRI) {
                             Libro nuovo = FrontEnd.leggiLibro(tastiera);
                             if (!verifica(mensola, nuovo)) {
                                 mensola.add(nuovo);
                             } else
                                 throw new Exception("Il libro è già presente");
-                        }catch (Exception e){
+                            }
+                        }catch(Exception e){
                             System.out.println(e.getMessage());
                         }
-
                     }
-                }
+
                 case 2 ->{
                     if(!mensola.isEmpty()){
-                        visualizza(mensola);
+                        mensola.forEach(m-> System.out.println(m.toString()));
                     } else
                         System.out.println("Mensola vuota");
                 }
+
                 case 3 ->{
                     if(!mensola.isEmpty()){
                         Libro nuovo = new Libro();
@@ -45,11 +46,12 @@ public class Main {
                         nuovo.Autore = tastiera.nextLine();
                         System.out.println("Inserisci il titolo");
                         nuovo.Titolo = tastiera.nextLine();
-                        if(rimuoviLibro(mensola, nuovo) != null){
+                        /*if(rimuoviLibro(mensola, nuovo) != null){
                             System.out.println("libro rimosso");
                         } else
                             System.out.println("Libro non trovato");
-
+                            */
+                         mensola.removeIf(m -> mensola.contains(nuovo));
                     }
                 }
                 case 4 ->{
@@ -62,8 +64,8 @@ public class Main {
                         int posizione = findIndex(mensola, nuovo);
                         if(posizione != -1){
                             System.out.println("Inserisci la nuova data");
-                            nuovo.dataDiPubblicazione = LocalDate.parse(tastiera.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                            mensola.get(posizione).dataDiPubblicazione = nuovo.dataDiPubblicazione;
+                            nuovo.pagine = Integer.parseInt(tastiera.nextLine());
+                            mensola.get(posizione).pagine = nuovo.pagine;
                             System.out.println("Data modificata");
                         } else
                             System.out.println("Libro non trovato");
@@ -77,7 +79,6 @@ public class Main {
 
             }
         }while(!esci);
-
     }
 
     public static boolean verifica(ArrayList<Libro> mensola, Libro nuovo){
@@ -89,10 +90,6 @@ public class Main {
         return false;
     }
 
-    public static void visualizza(ArrayList<Libro> mensola){
-        mensola.forEach(m -> System.out.println(m.FormattaDati()));
-    }
-
     public static ArrayList<Libro> rimuoviLibro(ArrayList<Libro> mensola, Libro nuovo){
         int posizione = findIndex(mensola, nuovo);
         if(posizione != -1) {
@@ -100,7 +97,7 @@ public class Main {
             return mensola;
         }
         return null;
-        }
+    }
 
     public static int findIndex(ArrayList<Libro> mensola, Libro nuovo){
         for(int i=0; i< mensola.size();i++){
