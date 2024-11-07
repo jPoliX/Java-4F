@@ -1,4 +1,4 @@
-public enum giostre {
+public enum ListaGiostre {
     ruotaPanoramica,
     autoscontro,
     ottovolante,
