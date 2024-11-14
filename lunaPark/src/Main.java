@@ -16,33 +16,33 @@ public class Main {
         String[] opzioni = {"GESTORE LUNAPARK", "Entrata", "Nuova Giostra", "Lista Giostre pre Biglietto", "Uscita", "Fine"};
 
         do{
-                switch (Menu(opzioni, sc)) {
-                    case 1 -> { //ingresso
-                        try {
-                            if (nPersone < MAXPERSONE) {
-                                nPersone++;
-                                Persona p = metodoCreazioneBiglietto(++nBiglietto);
-                                lista.add(p);
-                                System.out.println("numero assegnato al cliente: "+nBiglietto);
-                            } else {
-                                throw new Exception("Il lunapark è pieno");
-                            }
-                        }catch (Exception e){
-                            System.out.println(e.getMessage());
+            switch (Menu(opzioni, sc)) {
+                case 1 -> { //ingresso
+                    try {
+                        if (nPersone > MAXPERSONE) {
+                            throw new Exception("Il lunapark è pieno");
                         }
-                    }
-
-                    case 2 -> { //nuova giostra
-                        System.out.println("Numero biglietto cliente: ");
-                        int numeroB = Integer.parseInt(sc.nextLine());
-                        Persona p = metodoNuovaGiostra(numeroB, sc);
-                        lista.add(p);
-                    }
-
-                    case 4 ->{
-                        esci = true;
+                            nPersone++;
+                            Persona p = metodoCreazioneBiglietto(++nBiglietto); // la new è già dentro al metodo quindi non serve nel main
+                            lista.add(p);
+                            System.out.println("numero assegnato al cliente: "+nBiglietto);
+                            
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
                     }
                 }
+
+                case 2 -> { //nuova giostra
+                    System.out.println("Numero biglietto cliente: ");
+                    int numeroB = Integer.parseInt(sc.nextLine());
+                    Persona p = metodoNuovaGiostra(numeroB, sc);
+                    lista.add(p);
+                }
+
+                case 4 ->{
+                    esci = true;
+                }
+            }
         }while(!esci);
     }
 
