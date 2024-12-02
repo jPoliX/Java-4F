@@ -21,18 +21,9 @@ public class Frazione {
 
         return new Frazione(numNuovo, denNuovo);
     }
-    public double sommaFrazioneValore(Frazione addendo) throws Exception{
-        int numNuovo;
-        int denNuovo = 0;
-        double risultato;
-        if(this.denominatore != addendo.denominatore) {
-            denNuovo = this.denominatore * addendo.denominatore;
-        } else
-            denNuovo = this.denominatore;
-        numNuovo = (denNuovo / this.denominatore) * this.numeratore + (denNuovo / addendo.denominatore) * addendo.numeratore;
-        Frazione nuovo = new Frazione(numNuovo, denNuovo);
-        risultato = (double) numNuovo / denNuovo;
-        return risultato;
+     public double sommaFrazioneValore(Frazione addendo) throws Exception{
+        Frazione nuovo = sommaFrazioni(addendo);
+        return (double) nuovo.numeratore / nuovo.denominatore;
     }
 
     @Override
