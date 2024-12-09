@@ -5,13 +5,11 @@ public class Main {
     public static void main(String[] args) {
         boolean esci = false;
         Scanner sc = new Scanner(System.in);
-        String[] opzioni = {"Gara Clandestina", "Inserisci Pilota", "Inserisci Squadra", "Inizia Gara"};
-        do{
-            switch (Menu(opzioni, sc)){
-                case 1 ->{
-                  
-                }
-            }
-        }while (!esci);
+        try{
+            Pilota p1 = new Pilota("messi", "marchetto", "Islanda");
+            System.out.println(p1);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
