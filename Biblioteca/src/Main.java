@@ -38,7 +38,7 @@ public class Main {
                     String titolo = tastiera.nextLine();
                     Libro trovato = libreria.cercaLibro(autore, titolo);
                     if (trovato != null) {
-                        System.out.println("Libro trovato: " + trovato.toString());
+                        System.out.println("Libro trovato");
                     } else {
                         System.out.println("Libro non trovato.");
                     }
