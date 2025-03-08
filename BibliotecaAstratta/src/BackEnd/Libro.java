@@ -43,11 +43,6 @@ public abstract class Libro {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(autore, titolo);
-    }
-
-    @Override
     public boolean equals(Object o){
         if(o instanceof Libro){
             return this.autore.equals(((Libro) o).autore) && this.titolo.equals(((Libro) o).titolo);
